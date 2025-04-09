@@ -30,4 +30,14 @@ class AuthController extends Controller
 
         return redirect()->route('home');
     }
+
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
+    public function login(Request $request)
+    {
+        // ...
+    }
 }
