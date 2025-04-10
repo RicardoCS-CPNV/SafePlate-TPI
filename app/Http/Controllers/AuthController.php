@@ -15,6 +15,9 @@ class AuthController extends Controller
     // Show the registration form
     public function showRegistrationForm()
     {
+        if (Auth::check()) {
+            return redirect()->route('home')->with('success', 'Vous êtes déjà connecté(e)');
+        }
         // Find all the genders from the database and pass them to the view
         $genders = Gender::all();
         
@@ -36,12 +39,16 @@ class AuthController extends Controller
         Auth::login($user);
 
         // Redirect to the home page
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'Votre compte a été créé avec succès ! 🎉');
     }
 
     // Show the login form
     public function showLoginForm()
     {
+        if (Auth::check()) {
+            return redirect()->route('home')->with('success', 'Vous êtes déjà connecté(e)');
+        }
+
         return view('auth.login');
     }
 
@@ -54,11 +61,11 @@ class AuthController extends Controller
         // Attempt to log the user in
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate(); // Regenerate the session
-            return redirect()->route('home');
+            return redirect()->route('home')->with('success', 'Bienvenue, vous êtes connecté(e) ! 👋');
         }else{ // If the login attempt fails
             // Redirect the user back to the login form
             return to_route('auth.login')->withErrors([
-                'email' => 'Email invalide' // Display an error message
+                'email' => 'Les identifiants sont incorrects.' // Display an error message
             ])->onlyInput('email');
         }
     }
