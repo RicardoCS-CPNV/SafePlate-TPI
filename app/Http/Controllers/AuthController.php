@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Gender;
 use App\Models\User;
@@ -11,14 +12,19 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    // Show the registration form
     public function showRegistrationForm()
     {
+        // Find all the genders from the database and pass them to the view
         $genders = Gender::all();
+        
         return view('auth.register', compact('genders'));
     }
 
+    // Create a new user
     public function store(RegisterRequest $request)
     {
+        // Create the user
         $user = User::create(
             $request->only(['firstname', 'lastname', 'email', 'gender_id']) + [
                 'password' => bcrypt($request->password),
@@ -26,18 +32,43 @@ class AuthController extends Controller
             ]
         );
 
+        // Log the user in
         Auth::login($user);
 
+        // Redirect to the home page
         return redirect()->route('home');
     }
 
+    // Show the login form
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    public function login(Request $request)
+    // Login the user
+    public function login(LoginRequest $request)
     {
-        // ...
+        // Validate the request
+        $credentials = $request->only('email', 'password');
+
+        // Attempt to log the user in
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate(); // Regenerate the session
+            return redirect()->route('home');
+        }else{ // If the login attempt fails
+            // Redirect the user back to the login form
+            return to_route('auth.login')->withErrors([
+                'email' => 'Email invalide' // Display an error message
+            ])->onlyInput('email');
+        }
+    }
+
+    // Logout the user
+    public function logout(Request $request)
+    {
+        Auth::logout(); // Log the user out
+        $request->session()->invalidate(); // Invalidate the session
+        $request->session()->regenerateToken(); // Regenerate the session token
+        return redirect()->route('auth.login');
     }
 }
