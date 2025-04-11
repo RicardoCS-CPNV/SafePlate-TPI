@@ -65,7 +65,7 @@ class AuthController extends Controller
         }else{ // If the login attempt fails
             // Redirect the user back to the login form
             return to_route('auth.login')->withErrors([
-                'email' => 'Les identifiants sont incorrects.' // Display an error message
+                'failed' => 'Les identifiants sont incorrects.' // Display an error message
             ])->onlyInput('email');
         }
     }
