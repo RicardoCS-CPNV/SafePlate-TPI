@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesTableSeeder::class,
             GendersTableSeeder::class,
+            AllergensTableSeeder::class,
         ]);
 
         User::create([

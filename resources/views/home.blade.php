@@ -10,7 +10,7 @@
     @endif
 
     <h1>Home</h1>
-
+    <a href="{{ route('admin.menu') }}">Admin</a>
     @if (Auth::check())
         <p>Vous êtes {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}
             @if (Auth::user()->role_id == 1)
