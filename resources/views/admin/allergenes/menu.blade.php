@@ -25,17 +25,21 @@
         <thead>
             <tr>
                 <th class="border border-gray-300 px-4 py-2">Nom</th>
-                <!-- <th class="border border-gray-300 px-4 py-2">Icon</th> -->
-                 <th class="border border-gray-300 px-4 py-2">Edit</th>
+                <th class="border border-gray-300 px-4 py-2">Icon</th>
+                <th class="border border-gray-300 px-4 py-2">Edit</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($allergenes as $allergene)
                 <tr>
                     <td class="border border-gray-300 px-4">{{ $allergene->name }}</td>
-                    <!-- <td class="border border-gray-300 px-4 py-0">
-                        <img src="{{ asset('icons/' . $allergene->icon) }}" alt="{{ $allergene->name }}" class="w-8 h-8">
-                    </td> -->
+                    @if ($allergene->icon == null)
+                        <td class="border border-gray-300 px-4 py-0">X</td>
+                    @else
+                        <td class="border border-gray-300 px-4 py-0 h-1">
+                            <img src="{{ asset('storage/icons/' . $allergene->icon) }}" alt="{{ $allergene->name }}" class="w-8 h-8">
+                        </td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>

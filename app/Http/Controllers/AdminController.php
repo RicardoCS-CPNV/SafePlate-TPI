@@ -12,10 +12,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        if(!Auth::check()){
-            return view('admin.menu'); // Changer la route
-        }
-
-        return redirect('admin.menu');
+        // Redirect to admin menu
+        return view('admin.menu');
     }
 }

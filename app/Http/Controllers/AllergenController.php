@@ -14,22 +14,10 @@ class AllergenController extends Controller
      */
     public function index(Request $request)
     {
-
-        // if(!Auth::check()){
-        //     return view('admin.allergenes.menu');
-        // }
-
+        // Show the view and send the list of allergens
         return view('admin.allergenes.menu',[
             'allergenes' => Allergen::all(),
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -37,11 +25,16 @@ class AllergenController extends Controller
      */
     public function store(Request $request)
     {
+        // Check if the request is correct
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'icon' => 'nullable|string|max:255',
         ]);
+
+        // Create the new allergen
         Allergen::create($data);
+
+        // Redirect with a success message
         return redirect()->back()->with('success', 'Allergène créé avec succès !');
     }
 
