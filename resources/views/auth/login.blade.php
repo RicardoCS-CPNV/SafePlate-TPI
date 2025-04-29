@@ -6,13 +6,13 @@
     <div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center items-center">
         <div class="h-screen sm:h-fit max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center items-center flex-1 overflow-hidden">
             <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 flex flex-col items-center @if (!$errors->any()) slide-in-right @endif">
-                <a href="{{ route('home') }}" class="flex justify-center  h-12 items-center gap-[4px]">
-                    <img src="{{ asset('storage/web_images/Logo_Illustration.png') }}"
-                        class="mx-auto h-12" />
-                    <img src="{{ asset('storage/web_images/Logo_Text.png') }}"
-                        class="mx-auto h-10" />
+                <a href="{{ route('home') }}" class="select-none flex justify-center cursor-pointer h-12 items-center gap-[4px]">
+                    <img src="{{ asset('web_images/Logo_Illustration.png') }}"
+                        class="mx-auto h-12" draggable="false"/>
+                    <img src="{{ asset('web_images/Logo_Text.png') }}"
+                        class="mx-auto h-10" draggable="false"/>
                 </a>
-                <div class="mt-8 flex flex-col items-center">
+                <div class="mt-8 flex flex-col items-center w-full">
                     <h1 class="text-2xl xl:text-3xl font-extrabold">
                         Connexion
                     </h1>
@@ -60,13 +60,13 @@
                     </div>
                 </div>     
             </div>
-            <div class="relative flex-1 bg-indigo-100 text-center cover center hidden lg:flex @if (!$errors->any()) slide-in-left @endif">
+            <div class="select-none h-full relative flex-1 bg-indigo-100 text-center cover center hidden lg:flex @if (!$errors->any()) slide-in-left @endif">
                 <div class="absolute top-1/2 transform -translate-y-1/2 left-8 flex flex-col items-start">
                     <h1 class="text-6xl font-extrabold text-white">SafePlate</h1>
                     <h2 class="text-3xl font-semibold text-white">Pour une cuisine <br>qui vous connait</h2>
                 </div>
                 <div class="h-full w-full">
-                    <img src="{{ asset('storage/web_images/Auth_Aliment2.png') }}" alt="">
+                    <img src="{{ asset('web_images/auth_images/Auth_Aliment2.png') }}" alt="Presentation image" draggable="false" class="object-cover w-full h-full">
                 </div>
             </div>
         </div>

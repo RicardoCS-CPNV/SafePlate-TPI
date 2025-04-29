@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Allergen;
 use App\Models\Gender;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use const Dom\INDEX_SIZE_ERR;
 
 class AuthController extends Controller
 {
@@ -77,5 +79,31 @@ class AuthController extends Controller
         $request->session()->invalidate(); // Invalidate the session
         $request->session()->regenerateToken(); // Regenerate the session token
         return redirect()->route('auth.login');
+    }
+
+    public function edit(User $user)
+    {
+        $user = Auth::user();
+
+        return view('user.profile',[
+            'userAllergens' => $user->allergens,
+            'userAllergenIds' => $user->allergens->pluck('id')->toArray(),
+            'allAllergens' => Allergen::all(),
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user(); // User connected
+
+        $data = $request->validate([
+            'allergens' => 'array',
+            'allergens.*' => 'exists:allergens,id',
+        ]);
+
+        // Sync allergens (Add or delete)
+        $user->allergens()->sync($data['allergens'] ?? []);
+
+        return redirect()->back()->with('success', 'Allergènes mis à jour !');
     }
 }

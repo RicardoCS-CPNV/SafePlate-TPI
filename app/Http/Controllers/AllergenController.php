@@ -57,16 +57,25 @@ class AllergenController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Allergen $allergene)
     {
-        //
+        $validate = $request->validate([
+            'name' => 'required|string|max:255',
+            'icon' => 'nullable|string|max:255',
+        ]);
+
+        $allergene->update($validate);
+
+        return redirect()->route('admin.allergenes.menu')->with('success', 'Allergène mis à jour avec succès.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Allergen $allergene)
     {
-        //
+        $allergene->delete();
+
+        return redirect()->back()->with('success', 'Allergène supprimé avec succès.');
     }
 }

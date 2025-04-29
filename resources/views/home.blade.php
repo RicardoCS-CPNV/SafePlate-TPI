@@ -19,6 +19,8 @@
             @endif
         </p>
         
+        <a href="{{ route('profile.edit') }}">Gérer son profil</a>
+
         <form action="{{ route('auth.logout') }}" method="post" onsubmit="return confirm('Êtes-vous sur de vouloir vous déconnecter ?');" class="flex">
             @method("delete")
             @csrf
@@ -34,16 +36,4 @@
             <a href="{{ route('auth.login') }}" class="text-blue-500 bg-blue-200 w-fit py-1 px-4 rounded-full">Se connecter</a>
         </div>
     @endif
-
-    <script>
-        const flash = document.getElementById('flash-message');
-        setTimeout(() => {
-            if (flash) {
-                flash.style.opacity = 0;
-                setTimeout(() => {
-                    flash.remove(); // ✅ Supprime totalement l’élément
-                }, 500); // temps identique à la transition
-            }
-        }, 5000);
-    </script>
 @endsection
