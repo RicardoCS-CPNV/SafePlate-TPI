@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AllergenController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DishController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,12 @@ Route::prefix('/admin')->name('admin.')->middleware('isAdmin')->controller(Admin
         Route::post('/', 'store')->name('store');
         Route::put('/{allergene}', 'update')->name('update');
         Route::delete('/{allergene}', 'destroy')->name('destroy');
+    });
+    Route::prefix('/dishes')->name('dishes.')->controller(DishController::class)->group(function() {
+        Route::get('/', 'index')->name('menu');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/create', 'store')->name('store');
+        Route::delete('/{dish}', 'destroy')->name('destroy');
     });
 });
 

@@ -15,4 +15,9 @@ class Allergen extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function dishes()
+    {
+        return $this->belongsToMany(Dish::class, 'allergen_dish');
+    }
 }
