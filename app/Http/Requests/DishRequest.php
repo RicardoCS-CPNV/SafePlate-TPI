@@ -24,8 +24,8 @@ class DishRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
-            'images' => 'nullable|array',
+            'price' => 'required|numeric|min:0|max:999999.99',
+            'images' => 'required|array',
             'images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
             'allergens' => 'nullable|array',
             'allergens.*' => 'exists:allergens,id',

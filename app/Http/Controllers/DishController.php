@@ -28,6 +28,7 @@ class DishController extends Controller
     {
         return view('admin.dishes.create', [
             'allergens' => Allergen::all(),
+            'dish' => null,
         ]);
     }
 
@@ -38,18 +39,19 @@ class DishController extends Controller
     {
         $validated = $request;
 
-        // dd($validated);
-
+        // Create the dish
         $dish = Dish::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
-            'price' => $validated['price'],
+            'price' => number_format($validated['price']),
         ]);
 
+        // Check if allergens were selecte and add them
         if ($request->filled('allergens')) {
             $dish->allergens()->sync($request->input('allergens'));
         }
 
+        // Check if images were selecte and add them
         if($request->hasFile('images')) {
             $counter = 1;
             foreach($request->file('images') as $imageFile) {
@@ -82,15 +84,43 @@ class DishController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $dish = Dish::with('allergens')->findOrFail($id);
+
+        return view('admin.dishes.create', [
+            'dish' => $dish,
+            'allergens' => Allergen::all(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DishRequest $request, Dish $dish)
     {
-        //
+        $validated = $request;
+
+        // Update the dish
+        $dish->update([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'price' => $validated['price'],
+        ]);
+
+        // Update allergens
+        if ($request->filled('allergens')) {
+            $dish->allergens()->sync($validated['allergens']);
+        }
+
+        // Add images
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $index => $imageFile) {
+                $filename = $dish->id . '_' . now()->timestamp . '_' . $index . '.' . $imageFile->getClientOriginalExtension();
+                $path = $imageFile->storeAs('dish_images', $filename, 'public');
+                $dish->images()->create(['path' => $path]);
+            }
+        }
+
+        return redirect()->route('admin.dishes.edit', $dish->id)->with('success', 'Plat mis à jour avec succès.');
     }
 
     /**
@@ -98,14 +128,28 @@ class DishController extends Controller
      */
     public function destroy(Dish $dish)
     {
+        // Check all the images and delete them from the public disk
         foreach($dish->images as $image) {
             Storage::disk('public')->delete($image->path);
         }
 
+        // Delete the link between the dish and the allergens
         $dish->allergens()->detach();
 
+        // Delete the dish
         $dish->delete();
 
         return redirect()->route('admin.dishes.menu')->with('success', 'Plat supprimé avec succès.');
+    }
+
+    public function destroyImage(DishImage $image)
+    {
+        if ($image->path && Storage::disk('public')->exists($image->path)) {
+            Storage::disk('public')->delete($image->path);
+        }
+
+        $image->delete();
+
+        return back()->with('success', "Image supprimée de l'annonce.");
     }
 }

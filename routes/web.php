@@ -33,7 +33,10 @@ Route::prefix('/admin')->name('admin.')->middleware('isAdmin')->controller(Admin
         Route::get('/', 'index')->name('menu');
         Route::get('/create', 'create')->name('create');
         Route::post('/create', 'store')->name('store');
+        Route::get('/edit/{dish}', 'edit')->name('edit');
+        Route::put('/{dish}', 'update')->name('update');
         Route::delete('/{dish}', 'destroy')->name('destroy');
+        Route::delete('/images/{image}', 'destroyImage')->name('destroyImage');
     });
 });
 
