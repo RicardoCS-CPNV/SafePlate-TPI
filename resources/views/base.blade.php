@@ -9,8 +9,16 @@
     <title>@yield('title')</title>
 </head>
 <body>
-    <nav>
-        <h1>Nav Bar</h1>
+    <nav class="flex justify-around">
+        <a href="{{  route('home') }}" class="bg-amber-100 hover:bg-amber-200 cursor-pointer">Home</a>
+        <a href="{{ route('dishes.index') }}" class="bg-amber-100 hover:bg-amber-200 cursor-pointer">Plats</a>
+        @if (Auth::user()->role_id == 1)
+            <a class="bg-amber-100 hover:bg-amber-200 cursor-pointer" href="{{ route('admin.menu') }}">Admin</a>
+        @endif
+        <div class="flex gap-2">
+            <a href="{{ route('profile.edit') }}" class="bg-amber-100 hover:bg-amber-200 cursor-pointer">Profil</a>
+            <a href="{{ route('cart.index') }}" class="bg-amber-100 hover:bg-amber-200 cursor-pointer">Panier</a>
+        </div>
     </nav>
 
     @yield('content')

@@ -21,4 +21,9 @@ class Dish extends Model
     {
         return $this->hasMany(DishImage::class);
     }
+
+    public function orders()
+{
+    return $this->belongsToMany(Order::class, 'order_dish')->withPivot('quantity');
+}
 }

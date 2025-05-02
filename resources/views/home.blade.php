@@ -18,8 +18,6 @@
             (utilisateur)
             @endif
         </p>
-        
-        <a href="{{ route('profile.edit') }}">Gérer son profil</a>
 
         <form action="{{ route('auth.logout') }}" method="post" onsubmit="return confirm('Êtes-vous sur de vouloir vous déconnecter ?');" class="flex">
             @method("delete")

@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AllergenController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\DishViewController;
 use App\Http\Controllers\DishController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -44,4 +46,16 @@ Route::prefix('/admin')->name('admin.')->middleware('isAdmin')->controller(Admin
 Route::prefix('/profile')->name('profile.')->controller(AuthController::class)->group(function() {
     Route::get('/', 'edit')->name('edit')->middleware('auth');
     Route::post('/', 'update')->name('update')->middleware('auth');
+});
+
+Route::prefix('/dishes')->name('dishes.')->controller(DishViewController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+});
+
+// Cart
+Route::prefix('/cart')->name('cart.')->controller(CartController::class)->middleware('auth')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
+    Route::put('/{cartItem}', 'update')->name('update');
+    Route::delete('/{cartItem}', 'destroy')->name('destroy');
 });
