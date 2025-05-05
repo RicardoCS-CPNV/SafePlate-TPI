@@ -67,4 +67,12 @@ class CartController extends Controller
 
         return redirect()->back()->with('success', 'Plat supprimé du panier.');
     }
+
+    public function clear()
+    {
+        $user = Auth::user();
+        $user->cartItems()->delete();
+
+        return redirect()->route('cart.index')->with('success', 'Votre panier a été vidé.');
+    }
 }

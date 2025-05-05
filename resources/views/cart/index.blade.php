@@ -14,6 +14,12 @@
 @if($cartItems->isEmpty())
     <p>Votre panier est vide.</p>
 @else
+    <form action="{{ route('cart.clear') }}" method="POST" onsubmit="return confirm('Vider tout le panier ?');">
+        @csrf
+        @method('DELETE')
+        <button type="submit">Vider le panier</button>
+    </form>
+
     <table class="w-full border-collapse border border-gray-300 text-sm">
         <thead class="bg-amber-200">
             <tr class="grid grid-cols-5 text-left font-semibold text-gray-700 px-4 py-2">
