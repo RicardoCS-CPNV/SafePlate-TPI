@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DishViewController;
 use App\Http\Controllers\DishController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -44,19 +44,27 @@ Route::prefix('/admin')->name('admin.')->middleware('isAdmin')->controller(Admin
 
 // User Profile
 Route::prefix('/profile')->name('profile.')->controller(AuthController::class)->group(function() {
-    Route::get('/', 'edit')->name('edit')->middleware('auth');
-    Route::post('/', 'update')->name('update')->middleware('auth');
+    Route::get('/', 'edit')->name('edit')->middleware('isAuth');
+    Route::post('/', 'update')->name('update')->middleware('isAuth');
 });
 
+// Show Dishes
 Route::prefix('/dishes')->name('dishes.')->controller(DishViewController::class)->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/{dish}', 'show')->name('show');
 });
 
 // Cart
-Route::prefix('/cart')->name('cart.')->controller(CartController::class)->middleware('auth')->group(function () {
+Route::prefix('/cart')->name('cart.')->controller(CartController::class)->middleware('isAuth')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::post('/', 'store')->name('store');
     Route::put('/{cartItem}', 'update')->name('update');
     Route::delete('/{cartItem}', 'destroy')->name('destroy');
     Route::delete('/', 'clear')->name('clear');
+});
+
+// Orders
+Route::prefix('/orders')->name('orders.')->controller(OrderController::class)->middleware('isAuth')->group(function () {
+    Route::get('/orders', 'index')->name('index');
+    Route::post('/orders', 'store')->name('store');
 });

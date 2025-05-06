@@ -13,4 +13,11 @@ class DishViewController extends Controller
             'dishes' => Dish::all(),
         ]);
     }
+
+    public function show(Dish $dish)
+    {
+        return view('dishes.show', [
+            'dish' => $dish,
+        ]);
+    }
 }

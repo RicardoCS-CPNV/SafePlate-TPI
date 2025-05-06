@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsAdmin
+class IsAuth
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,10 @@ class IsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         // Check if admin
-        if (Auth::check() && Auth::user()->role_id == 1) {
+        if (Auth::check()) {
             return $next($request);
         }
 
-        return redirect()->route('home')->with('error',"Vous n'avez pas accès à cette page.");
+        return redirect()->route('auth.register')->with('success',"Vous devez être connecté(e).");
     }
 }

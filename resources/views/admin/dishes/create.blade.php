@@ -5,6 +5,16 @@
 @section('content')
 
     <div class="max-w-5xl mx-auto px-4 md:px-10 py-5 bg-white md:shadow-md rounded-md">
+        <!-- Back Button -->
+        <div class="mb-4 mt-1">
+            <a href="{{ route('admin.dishes.menu') }}"  class="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold rounded-lg shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Retour
+            </a>
+        </div>
+
         <h1 class="text-3xl font-bold text-gray-800 mb-2 md:mb-8 text-center md:text-left">
             {{ $dish ? 'Modifier le plat' : 'Créer un plat' }}
         </h1>

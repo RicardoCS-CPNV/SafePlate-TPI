@@ -9,10 +9,9 @@
             {{ session('success') }}
         </div>
     @endif
-    <h1 class="mx-4 md:mx-10 xl:mx-20 py-4 text-3xl font-bold">Gestion allergènes</h1>
 
-    <!-- Back Button (Only mobile) -->
-    <div class="mx-4 md:mx-10 xl:mx-20 mb-4 md:hidden">
+    <!-- Back Button -->
+    <div class="mx-4 md:mx-10 xl:mx-20 mb-4 mt-6">
         <a href="{{ route('admin.menu') }}"  class="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold rounded-lg shadow-md">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -20,6 +19,8 @@
             Retour
         </a>
     </div>
+
+    <h1 class="mx-4 md:mx-10 xl:mx-20 py-4 text-3xl font-bold">Gestion allergènes</h1>
 
     <!-- Add Allergen -->
     <div x-data="{ open: false }" class="shadow-lg rounded-lg p-2 bg-white mx-4 md:mx-10 xl:mx-20 mb-4">

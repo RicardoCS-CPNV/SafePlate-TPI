@@ -4,8 +4,13 @@
 
 @section('content')
     @if(session('success'))
-        <div id="flash-message" class="bg-green-200 text-green-900 py-3 px-10 rounded-md absolute top-10 left-1/2 transform -translate-x-1/2 w-fit transition-opacity duration-300">
+        <div id="flash-message" class="bg-green-200/30 backdrop-blur-sm text-green-900 py-3 px-10 rounded-md absolute top-15 left-1/2 transform -translate-x-1/2 w-fit transition-opacity duration-300">
             {{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div id="flash-message" class="bg-red-200/30 backdrop-blur-sm text-red-900 py-3 px-10 rounded-md absolute top-15 left-1/2 transform -translate-x-1/2 w-fit transition-opacity duration-300">
+            {{ session('error') }}
         </div>
     @endif
 

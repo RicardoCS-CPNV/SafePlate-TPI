@@ -55,7 +55,7 @@ class CartController extends Controller
             'quantity' => $validated['quantity'],
         ]);
 
-        return redirect()->back()->with('success', 'Quantité mise à jour.');
+        return redirect()->back();
     }
 
     /**
