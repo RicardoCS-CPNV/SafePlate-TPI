@@ -4,9 +4,9 @@
 
 @section('content')
 
-    <div class="max-w-5xl mx-auto px-4 md:px-10 py-5 bg-white md:shadow-md rounded-md">
+    <div class="max-w-5xl mx-auto px-4 md:px-10 pb-10 bg-white md:shadow-md rounded-md">
         <!-- Back Button -->
-        <div class="mb-4 mt-1">
+        <div class="mb-4">
             <a href="{{ route('admin.dishes.menu') }}"  class="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold rounded-lg shadow-md">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -111,7 +111,7 @@
             {{-- Submit button --}}
             <div class="text-left">
                 <button type="submit"
-                        class="w-full md:w-fit inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2.5 px-6 rounded transition duration-200">
+                        class="cursor-pointer w-full md:w-fit inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-2.5 px-6 rounded transition duration-200">
                         {{ $dish ? 'Enregistrer les modifications' : 'Créer le plat' }}
                 </button>
             </div>

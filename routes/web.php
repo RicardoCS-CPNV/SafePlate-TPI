@@ -4,14 +4,14 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AllergenController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DishViewController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+// Home
+Route::get('/', [DashboardController::class, 'home'])->name('home');
 
 // Register
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('auth.register');
@@ -24,13 +24,15 @@ Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout')
 
 // Allergens
 Route::prefix('/admin')->name('admin.')->middleware('isAdmin')->controller(AdminController::class)->group(function() {
-    Route::get('/', 'index')->name('menu');
+    Route::get('/', [DashboardController::class,'admin'])->name('menu');
+    // Allergens
     Route::prefix('/allergenes')->name('allergenes.')->controller(AllergenController::class)->group(function() {
         Route::get('/', 'index')->name('menu');
         Route::post('/', 'store')->name('store');
         Route::put('/{allergene}', 'update')->name('update');
         Route::delete('/{allergene}', 'destroy')->name('destroy');
     });
+    // Dishes
     Route::prefix('/dishes')->name('dishes.')->controller(DishController::class)->group(function() {
         Route::get('/', 'index')->name('menu');
         Route::get('/create', 'create')->name('create');
@@ -51,6 +53,7 @@ Route::prefix('/profile')->name('profile.')->controller(AuthController::class)->
 // Show Dishes
 Route::prefix('/dishes')->name('dishes.')->controller(DishViewController::class)->group(function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/search', 'search')->name('search');
     Route::get('/{dish}', 'show')->name('show');
 });
 

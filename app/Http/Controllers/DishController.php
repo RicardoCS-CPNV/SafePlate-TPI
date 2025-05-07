@@ -43,7 +43,7 @@ class DishController extends Controller
         $dish = Dish::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
-            'price' => number_format($validated['price']),
+            'price' => number_format($validated['price'],2),
         ]);
 
         // Check if allergens were selecte and add them
