@@ -62,5 +62,4 @@ class DishViewController extends Controller
     
         return view('dishes.partials.list', compact('dishes'));
     }
-    
 }

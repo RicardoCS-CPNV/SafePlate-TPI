@@ -25,8 +25,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 // Allergens
-Route::prefix('/admin')->name('admin.')->middleware('isAdmin')->controller(AdminController::class)->group(function() {
-    Route::get('/', [DashboardController::class,'admin'])->name('menu');
+Route::prefix('/admin')->name('admin.')->middleware('isAdmin')->controller(DashboardController::class)->group(function() {
+    Route::get('/', 'admin')->name('menu');
     // Allergens
     Route::prefix('/allergenes')->name('allergenes.')->controller(AllergenController::class)->group(function() {
         Route::get('/', 'index')->name('menu');

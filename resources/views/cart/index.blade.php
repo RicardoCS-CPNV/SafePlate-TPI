@@ -11,7 +11,7 @@
     </div>
 @endif
 
-<div class="mx-4 md:mx-10 xl:mx-20 pb-6">
+<div class="mx-4 md:mx-10 xl:mx-20 pb-6 mt-6">
 
     <!-- Back Button -->
     <div class="mb-4">

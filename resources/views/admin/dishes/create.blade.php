@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="max-w-5xl mx-auto px-4 md:px-10 pb-10 bg-white md:shadow-md rounded-md">
+    <div class="max-w-5xl mx-auto px-4 md:px-10 pb-10 mt-6 bg-white md:shadow-md rounded-md">
         <!-- Back Button -->
         <div class="mb-4">
             <a href="{{ route('admin.dishes.menu') }}"  class="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold rounded-lg shadow-md">
