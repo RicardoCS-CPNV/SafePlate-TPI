@@ -23,7 +23,7 @@ class Dish extends Model
     }
 
     public function orders()
-{
-    return $this->belongsToMany(Order::class, 'order_dish')->withPivot('quantity');
-}
+    {
+        return $this->belongsToMany(Order::class, 'order_dish')->withPivot('quantity');
+    }
 }

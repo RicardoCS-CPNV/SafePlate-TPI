@@ -20,6 +20,8 @@ Route::post('/register', [AuthController::class, 'store']);
 // Login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('auth.login');
 Route::post('/login', [AuthController::class, 'login']);
+
+// Logout
 Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 // Allergens

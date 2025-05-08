@@ -13,19 +13,21 @@ class DishViewController extends Controller
      */
     public function index()
     {
-        // Get the user allergens
         $user = Auth::user();
-        $userAllergenIds = $user->allergens->pluck('id');
 
-        // Get the dishes without allergens of the user
-        $dishes = Dish::whereDoesntHave('allergens', function ($query) use ($userAllergenIds) {
-            $query->whereIn('allergen_id', $userAllergenIds); // Make the comparison
-        })->with('images')->get(); // Less requests on the view page
+        // Check if user is connected
+        if ($user) {
+            $userAllergenIds = $user->allergens->pluck('id');
 
-        // Return the view
-        return view('dishes.index', [
-            'dishes' => $dishes,
-        ]);
+            $dishes = Dish::whereDoesntHave('allergens', function ($query) use ($userAllergenIds) {
+                $query->whereIn('allergen_id', $userAllergenIds);
+            })->with('images')->get();
+        } else {
+            // if user is not connected
+            $dishes = Dish::with('images')->get();
+        }
+
+        return view('dishes.index', compact('dishes'));
     }
 
     /**
@@ -39,20 +41,26 @@ class DishViewController extends Controller
     }
 
     /**
-     * Display the dish.
+     * Display the by the user's search.
      */
     public function search(Request $request)
     {
         $query = $request->q;
-        $userAllergenIds = Auth::user()->allergens->pluck('id');
-
-        $dishes = Dish::where('name', 'like', "%{$query}%")
-            ->whereDoesntHave('allergens', function ($q) use ($userAllergenIds) {
+        $user = Auth::user();
+    
+        $dishesQuery = Dish::where('name', 'like', "%{$query}%");
+    
+        if ($user) {
+            $userAllergenIds = $user->allergens->pluck('id');
+    
+            $dishesQuery->whereDoesntHave('allergens', function ($q) use ($userAllergenIds) {
                 $q->whereIn('allergen_id', $userAllergenIds);
-            })
-            ->with('images')
-            ->get();
-
+            });
+        }
+    
+        $dishes = $dishesQuery->with('images')->get();
+    
         return view('dishes.partials.list', compact('dishes'));
     }
+    
 }

@@ -10,13 +10,14 @@ class Order extends Model
     protected $casts = [
         'ordered_at' => 'datetime',
     ];
-    
 
-    public function user() {
+    public function user() 
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function dishes() {
+    public function dishes() 
+    {
         return $this->belongsToMany(Dish::class, 'order_dish')->withPivot('quantity');
     }
 }
