@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AllergenController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
@@ -43,6 +44,11 @@ Route::prefix('/admin')->name('admin.')->middleware('isAdmin')->controller(Dashb
         Route::put('/{dish}', 'update')->name('update');
         Route::delete('/{dish}', 'destroy')->name('destroy');
         Route::delete('/images/{image}', 'destroyImage')->name('destroyImage');
+    });
+    Route::prefix('/users')->name('users.')->controller(AdminUserController::class)->group(function() {
+        Route::get('/', 'index')->name('index');
+        Route::put('/{user}', 'update')->name('update');
+        Route::delete('/{user}', 'destroy')->name('destroy');
     });
 });
 
