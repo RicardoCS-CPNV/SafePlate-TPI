@@ -41,15 +41,17 @@ class DishViewController extends Controller
     }
 
     /**
-     * Display the by the user's search.
+     * Display the dishes by the user's search.
      */
     public function search(Request $request)
     {
         $query = $request->q;
         $user = Auth::user();
     
+        // Get the dishes by the user's search
         $dishesQuery = Dish::where('name', 'like', "%{$query}%");
     
+        // Filter the search with the user's allergens
         if ($user) {
             $userAllergenIds = $user->allergens->pluck('id');
     
@@ -58,6 +60,7 @@ class DishViewController extends Controller
             });
         }
     
+        // Get the images
         $dishes = $dishesQuery->with('images')->get();
     
         return view('dishes.partials.list', compact('dishes'));

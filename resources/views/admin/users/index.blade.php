@@ -20,7 +20,7 @@
         </a>
     </div>
 
-    <div class="flex flex-wrap mx-4 md:mx-10 xl:mx-20 py-4 gap-3 items-center justify-between">
+    <div class="flex flex-wrap mx-4 md:mx-10 xl:mx-20 mt-4 gap-3 items-baseline justify-between">
         <h1 class="text-3xl font-bold">Gestion des utilisateurs</h1>
         <div class="sm:text-end">
             <p class="text-xl font-semibold">Utilisateur total: {{ $users->count() }}</p>

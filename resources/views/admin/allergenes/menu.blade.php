@@ -5,13 +5,13 @@
 @section('content')
     <!-- Success Message -->
     @if(session('success'))
-        <div id="flash-message" class="bg-green-200 text-green-900 py-3 px-10 rounded-md absolute top-10 left-1/2 transform -translate-x-1/2 w-fit transition-opacity duration-300">
+        <div id="flash-message" class="bg-green-200 text-green-900 py-3 px-10 rounded-md absolute top-15 left-1/2 transform -translate-x-1/2 w-fit transition-opacity duration-300">
             {{ session('success') }}
         </div>
     @endif
 
     <!-- Back Button -->
-    <div class="mx-4 md:mx-10 xl:mx-20 mb-4 mt-6">
+    <div class="mx-4 md:mx-10 xl:mx-20 mt-6">
         <a href="{{ route('admin.menu') }}"  class="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold rounded-lg shadow-md">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -80,7 +80,6 @@
                     @foreach ($allergenes as $allergene)
                         <!-- Keep the data in mind -->
                         <tr 
-                        
                             x-data="{
                                 edit: false,
                                 name: '{{ $allergene->name }}',
@@ -91,8 +90,7 @@
                                     this.edit = false;
                                 }
                             }"
-                            @keydown.escape.window="reset()"
-                        >
+                            @keydown.escape.window="reset()">
                             <!-- Data ID -->
                             <td class="py-2 px-6 border-b border-gray-200 text-center">{{ $allergene->id }}</td>
 

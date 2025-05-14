@@ -8,6 +8,13 @@
 @section('content')
 <div class="mx-4 md:mx-10 lg:mx-20 my-6">
 
+    <!-- Success Message -->
+    @if(session('success'))
+        <div id="flash-message" class="bg-green-200 text-green-900 py-3 px-10 rounded-md absolute top-15 left-1/2 transform -translate-x-1/2 w-fit transition-opacity duration-300">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <!-- Back Button -->
     <div class="my-4">
         <a href="{{ route('admin.menu') }}"  class="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-600 font-semibold rounded-lg shadow-md">
@@ -29,7 +36,7 @@
     <div class="shadow-lg rounded-lg overflow-hidden mb-10">
         <div class="overflow-x-auto">
             <table class="w-full table-fixed min-w-[600px]">
-                <!-- En-têtes -->
+                <!-- Header -->
                 <thead>
                     <tr class="bg-gray-100">
                         <th class="w-1/20 py-2 px-4 text-center text-gray-600 font-bold uppercase">ID</th>
@@ -41,7 +48,7 @@
                     </tr>
                 </thead>
 
-                <!-- Données -->
+                <!-- Data -->
                 <tbody class="bg-white text-sm">
                     @foreach ($dishes as $dish)
                     <tr class="border-b border-gray-200 hover:bg-gray-50 cursor-pointer"
@@ -49,7 +56,7 @@
                             <!-- ID -->
                             <td class="text-center py-2 px-4">{{ $dish->id }}</td>
 
-                            <!-- Nom -->
+                            <!-- Name -->
                             <td class="text-left py-2 px-4 font-semibold text-gray-800">{{ $dish->name }}</td>
 
                             <!-- Description -->
@@ -58,7 +65,7 @@
                             </td>
 
 
-                            <!-- Prix -->
+                            <!-- Price -->
                             <td class="text-left py-2 px-4 text-gray-700">{{ number_format($dish->price, 2) }} CHF</td>
 
                             <!-- Image -->
@@ -75,7 +82,7 @@
                             <!-- Actions -->
                             <td class="text-center py-2 px-4">
                                 <div class="flex justify-center items-center space-x-3">
-                                    <!-- Modifier -->
+                                    <!-- Modify -->
                                     <a href="{{ route($editRoute, $dish->id) }}"
                                     class="text-blue-600 hover:text-blue-800" title="Modifier">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
@@ -85,7 +92,7 @@
                                         </svg>
                                     </a>
 
-                                    <!-- Supprimer -->
+                                    <!-- Delete -->
                                     <form action="{{ route('admin.dishes.destroy', $dish->id) }}" method="POST"
                                         onsubmit="return confirm('Supprimer ce plat ?');">
                                         @csrf

@@ -6,7 +6,7 @@
 
 @if(session('success'))
     <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show" x-transition
-         class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-green-100 border border-green-400 text-green-900 px-6 py-3 rounded shadow-lg z-50">
+        class="fixed top-15 left-1/2 transform -translate-x-1/2 bg-green-100 text-green-900 px-6 py-3 rounded shadow-lg z-50">
         {{ session('success') }}
     </div>
 @endif
@@ -28,7 +28,7 @@
     @if($cartItems->isEmpty())
         <p class="text-gray-600">Votre panier est vide.</p>
     @else
-        {{-- Bouton Vider --}}
+        {{-- Clean Cart Button --}}
         <form action="{{ route('cart.clear') }}" method="POST" onsubmit="return confirm('Vider tout le panier ?');" class="mb-4">
             @csrf
             @method('DELETE')
@@ -37,7 +37,7 @@
             </button>
         </form>
 
-        {{-- Liste des plats --}}
+        {{-- Dishes List --}}
         <div class="grid gap-4">
             @php $total = 0; @endphp
             @foreach($cartItems as $item)
@@ -47,7 +47,7 @@
                 @endphp
 
                 <div class="relative transition bg-white hover:bg-gray-100 rounded-lg shadow p-4 flex flex-col md:flex-row items-start md:items-center justify-baseline gap-4">
-                    {{-- Infos plat --}}
+                    {{-- Dish info --}}
                     <div class="w-fit">
                         <a href="{{ route('dishes.show', $item->dish->id) }}">
                             <img src="{{ asset('storage/' . $item->dish->images->first()->path) }}"
@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="sm:absolute sm:right-5 flex flex-col sm:flex-row items-center gap-2">
-                        {{-- Modifier quantité --}}
+                        {{-- Modify quantity --}}
                         <form action="{{ route('cart.update', $item->id) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -72,7 +72,7 @@
                     </form>
 
 
-                        {{-- Supprimer --}}
+                        {{-- Delete dish --}}
                         <form action="{{ route('cart.destroy', $item->id) }}" method="POST"
                               onsubmit="return confirm('Supprimer ce plat ?');">
                             @csrf
@@ -93,7 +93,7 @@
             Total : {{ number_format($total, 2) }} CHF
         </div>
 
-        {{-- Valider la commande --}}
+        {{-- Validate the order --}}
         <div x-data="{ showConfirm: false }" class="mt-6">
             <button type="button"
                     @click="showConfirm = true"
@@ -101,7 +101,7 @@
                 Valider la commande
             </button>
 
-            {{-- Fenêtre de confirmation --}}
+            {{-- Confirmation Window --}}
             <div x-show="showConfirm" x-cloak x-transition
                  class="fixed inset-0 flex items-center justify-center z-50 bg-black/15 backdrop-blur-sm">
                 <div class="bg-gray-50 rounded-xl shadow-lg w-11/12 max-w-md p-6 text-center">
@@ -110,14 +110,14 @@
                     </h2>
                     <p class="text-gray-600 mb-6">Souhaitez-vous vraiment valider votre commande ?</p>
                     <div class="flex justify-center gap-4">
-                        {{-- Valider --}}
+                        {{-- Validate --}}
                         <form action="{{ route('orders.store') }}" method="POST">
                             @csrf
                             <button type="submit" class="cursor-pointer bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded font-medium shadow">
                                 Oui
                             </button>
                         </form>
-                        {{-- Annuler --}}
+                        {{-- Cancel --}}
                         <button @click="showConfirm = false"
                             class="cursor-pointer bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded font-medium shadow">
                             Non
@@ -130,7 +130,7 @@
     @endif
 </div>
 
-{{-- Alpine & Cloak --}}
+{{-- Alpine and Cloak --}}
 @push('scripts')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endpush

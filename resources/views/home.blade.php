@@ -10,7 +10,7 @@
     @endif
     @if(session('error'))
         <div id="flash-message" class="bg-red-200/30 backdrop-blur-sm z-50 text-red-900 font-semibold py-3 px-10 rounded-md absolute top-20 left-1/2 transform -translate-x-1/2 w-fit transition-opacity duration-300">
-            {{ session('error') }}adasd
+            {{ session('error') }}
         </div>
     @endif
 
@@ -53,17 +53,17 @@
     </section>
 
     <div
-    x-data="{ show: true }"
-    x-init="setTimeout(() => show = false, 500)"
-    x-show="show"
-    x-transition:leave="transition-opacity duration-1000"
-    x-transition:leave-start="opacity-100"
-    x-transition:leave-end="opacity-0"
-    x-cloak
-    class="fixed inset-0 bg-black z-50 flex items-center justify-center">
+        x-data="{ show: true }"
+        x-init="setTimeout(() => show = false, 500)"
+        x-show="show"
+        x-transition:leave="transition-opacity duration-1000"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        x-cloak
+        class="fixed inset-0 bg-black z-50 flex items-center justify-center">
 
-    <img src="{{ asset('web_images/Logo_Illustration.png') }}" alt="Logo" class="h-40 animate-pulse">
-</div>
+        <img src="{{ asset('web_images/Logo_Illustration.png') }}" alt="Logo" class="h-40 animate-pulse">
+    </div>
 
 
     <style>

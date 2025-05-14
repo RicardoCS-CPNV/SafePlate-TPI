@@ -13,8 +13,9 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        $activeUsers = DB::table('sessions');
+        $users = User::all(); // Get all the users
+        $activeUsers = DB::table('sessions'); // Get the active users (guest, user and admin)
+
         return view('admin.users.index', compact(['users', 'activeUsers']));
     }
 
@@ -23,6 +24,7 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        // Check if the request is good
         $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -30,6 +32,7 @@ class AdminUserController extends Controller
             'role_id' => 'required|in:1,2',
         ]);
 
+        // Update the user
         $user->update($request->only(['firstname','lastname','email','role_id']));
 
         return redirect()->route('admin.users.index')->with('success', 'Utilisateur mis à jour.');
@@ -40,7 +43,9 @@ class AdminUserController extends Controller
      */
     public function destroy(User $user)
     {
+        // Delete the user
         $user->delete();
+        
         return redirect()->route('admin.users.index')->with('success', 'Utilisateur supprimé.');
     }
 }

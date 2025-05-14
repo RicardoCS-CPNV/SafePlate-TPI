@@ -58,7 +58,7 @@ class DishController extends Controller
                 $extension = $imageFile->getClientOriginalExtension();
                 $filename = $dish->id . '_' . $counter . '.' . $extension;
 
-                // Stocker le fichier dans 'storage/app/public/dish_images'
+                // Stock the images in 'storage/app/public/dish_images'
                 $path = $imageFile->storeAs('dish_images', $filename, 'public');
                 DishImage::create([
                     'dish_id' => $dish->id,
@@ -69,14 +69,6 @@ class DishController extends Controller
         }
 
         return redirect()->route('admin.dishes.menu')->with('success', 'Plat créé avec succès.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -142,12 +134,17 @@ class DishController extends Controller
         return redirect()->route('admin.dishes.menu')->with('success', 'Plat supprimé avec succès.');
     }
 
+    /**
+     * Remove the image resource from storage.
+     */
     public function destroyImage(DishImage $image)
     {
+        // Delete the image from storage
         if ($image->path && Storage::disk('public')->exists($image->path)) {
             Storage::disk('public')->delete($image->path);
         }
 
+        // Delete the image from Database
         $image->delete();
 
         return back()->with('success', "Image supprimée de l'annonce.");

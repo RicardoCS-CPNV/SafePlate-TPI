@@ -31,7 +31,7 @@ class AllergenController extends Controller
             'icon' => 'nullable|string|max:255',
         ]);
 
-        // Create the new allergen
+        // Create allergen
         Allergen::create($data);
 
         // Redirect with a success message
@@ -39,31 +39,17 @@ class AllergenController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Allergen $allergene)
     {
+        // Check if the request is correct
         $validate = $request->validate([
             'name' => 'required|string|max:255',
             'icon' => 'nullable|string|max:255',
         ]);
 
+        // Update allergen
         $allergene->update($validate);
 
         return redirect()->route('admin.allergenes.menu')->with('success', 'Allergène mis à jour avec succès.');

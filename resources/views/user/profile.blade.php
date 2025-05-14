@@ -84,7 +84,7 @@
                     @endforeach
                 </div>
 
-                <!-- Bouton de validation -->
+                <!-- Submit -->
                 <div class="md:relative fixed bottom-5 left-0 right-0 py-4 flex justify-center md:mt-6">
                     <button type="submit" class="cursor-pointer bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 px-8 rounded-2xl shadow-md transition-all">
                         Mettre à jour mes allergènes

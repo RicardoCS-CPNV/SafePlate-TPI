@@ -29,10 +29,10 @@ class CartController extends Controller
 
         $item = $user->cartItems()->where('dish_id', $dishId)->first();
 
-        if ($item) {
-            // Si le plat est déjà dans le panier, on augmente la quantité
+        // Check if dish already on cart
+        if ($item) { // Increment thr quantity of the dish
             $item->increment('quantity', $quantity);
-        } else {
+        } else { // Add the dish to the cart
             $user->cartItems()->create([
                 'dish_id' => $dishId,
                 'quantity' => $quantity,
